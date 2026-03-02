@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="foodAPI()">click</button>
+  <p id="show"></p>
+</body>
+<script>
+  const endpoint = 'https://mongotest2026.vercel.app/api/foods/'
+  const foodAPI = async() => {
+    const result = fetch(endpoint)
+    // console.log(result);
+    const awaitedResult = await result
+    // console.log(awaitedResult);
+    const convertedResult = await awaitedResult.json()
+    console.log(convertedResult);
+    if (convertedResult.status === 201) {
+      let data = convertedResult.data
+      console.log(data);
+      for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        show.innerHTML += `
+          <div>
+            <p>${element.id}. ${element.name}</p>
+          </div>
+        `
+      }
+    }
+  }
+</script>
+
+</html>
