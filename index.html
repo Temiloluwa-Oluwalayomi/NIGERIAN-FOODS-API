@@ -5,34 +5,374 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </head>
 
 <body>
-  <button onclick="foodAPI()">click</button>
-  <p id="show"></p>
-</body>
-<script>
-  const endpoint = 'https://mongotest2026.vercel.app/api/foods/'
-  const foodAPI = async() => {
-    const result = fetch(endpoint)
-    // console.log(result);
-    const awaitedResult = await result
-    // console.log(awaitedResult);
-    const convertedResult = await awaitedResult.json()
-    console.log(convertedResult);
-    if (convertedResult.status === 201) {
-      let data = convertedResult.data
-      console.log(data);
-      for (let index = 0; index < data.length; index++) {
-        const element = data[index];
-        show.innerHTML += `
-          <div>
-            <p>${element.id}. ${element.name}</p>
+  <!-- NAVBAR -->
+  <nav class="bg-gray-900 text-white shadow-lg sticky top-0">
+    <div class="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="#" class="flex-shrink-0 flex items-center">
+            <img class="h-8 w-auto" src="https://tailwindflex.com/images/logo.svg" alt="Logo">
+            <span class="ml-2 text-xl font-bold">TO Foods</span>
+          </a>
+          <div class="pl-90 hidden md:ml-6 md:flex md:space-x-8">
+            <a href="#"
+              class="text-white border-b-2 border-indigo-500 px-10 pt-1 inline-flex items-center text-sm font-medium">
+              About
+            </a>
+            <a href="#"
+              class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-10 pt-1 inline-flex items-center text-sm font-medium">
+              Meals
+            </a>
+            <a href="#"
+              class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-10 pt-1 inline-flex items-center text-sm font-medium">
+              Contact
+            </a>
+
+            <!-- <a href="#"
+              class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 inline-flex items-center text-sm font-medium">Contact</>
+            </a> -->
+
+            <a class="px-6 py-2 min-w-[120px] text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring"
+              href="/download">
+              Favorites
+            </a>
           </div>
-        `
-      }
-    }
-  }
+        </div>
+        <div class="flex items-center">
+          <!-- Mobile menu button -->
+          <div class="flex items-center md:hidden ml-4">
+            <button type="button"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-expanded="false" id="mobile-menu-button">
+              <span class="sr-only">Open main menu</span>
+              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="#" class="bg-gray-800 text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+        <a href="#"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Meals</a>
+        <a href="#"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- END OF NAVBAR   -->
+
+
+  <!-- BEGINNING OF HERO SECTION -->
+  <section class="w-full">
+    <div
+      class="w-full h-[90vh] bg-[url('/top-view-vegetable-soup-with-meat-inside-plate-grey.jpg')] bg-cover bg-no-repeat bg-center flex flex-col justify-center items-center ">
+      <div>
+        <h1
+          class="text-white text-center xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl :text-xl font-semibold bg-gray-800 p-2 bg-opacity-40 rounded-sm">
+          Welcome to TO FOODS</h1>
+      </div>
+      <div class="w-full mx-auto">
+        <form>
+          <div class="xl:w-1/2 lg:w-[60%] sm:w-[70%] w-[90%] mx-auto flex gap-2 md:mt-6 mt-4 mx-4">
+            <input type="text" class="border border-gray-400 w-full p-2 rounded-md text-xl pl-2" placeholder="" />
+            <button type="submit"
+              class="px-[10px] bg-blue-500 text-lg text-white rounded-md font-semibold">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- END OF HERO SECTION -->
+
+
+  <!-- <button onclick="foodAPI()">click</button> -->
+  <!-- <p id="show" class="d-flex flex-wrap align-items-start justify-content-center"></p> -->
+
+
+  <div class="p-6 min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+      Available Foods
+    </h2>
+
+
+
+    <!-- BEGINNING OF DROPDOWN -->
+    <div class="rounded-lg shadow-lg p-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Category Selection -->
+        <div>
+          <label class="block text-sm font-medium text-gray-200 mb-2">Category</label>
+          <select id=""
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600">
+            <option value="">All Categories</option>
+            <option value="Soups">Soups</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Swallow">Swallow</option>
+            <option value="Breakfast/Snacks">Breakfast/Snacks</option>
+            <option value="Side dish/Main">Side dish/Main</option>
+            <option value="Snacks/Dessert">Snacks/Dessert</option>
+            <option value="Appetizer/Side dish">Appetizer/Side dish</option>
+            <option value="Side dish/Snacks">Side dish/Snacks</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-200 mb-2">Region</label>
+          <select id=""
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600">
+            <option value="All Regions">All Regions</option>
+            <option value="Northern Nigeria">Northern Nigeria</option>
+            <option value="South-West Nigeria">South-West Nigeria</option>
+            <option value="South-South Nigeria">South-South Nigeria</option>
+            <option value="South-East Nigeria">South-East Nigeria</option>
+          </select>
+        </div>
+        <!-- Toggle Switch Tarzı Checkboxlar -->
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <div class="relative">
+            <input type="checkbox" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-blue-600 transition-colors duration-300">
+            </div>
+            <div
+              class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 peer-checked:left-6">
+            </div>
+          </div>
+          <span class="text-gray-200">Vegeterian</span>
+        </label>
+
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <div class="relative">
+            <input type="checkbox" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-blue-600 transition-colors duration-300">
+            </div>
+            <div
+              class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 peer-checked:left-6">
+            </div>
+          </div>
+          <span class="text-gray-200">Spicy</span>
+        </label>
+        <!-- Clear Filter Button -->
+        <div class="flex items-end">
+          <button
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 transform hover:scale-105">
+            Clear Filter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- END OF DROPDOWN -->
+
+
+
+
+    <!-- FOOD CARD SECTION -->
+
+    <!-- Spinner  -->
+      <div class="flex gap-4 p-4 flex-wrap justify-center" style="display:none" id="spinner">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/70469/loading.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/448500/loading.svg" alt="Loading icon">
+      </div>
+
+
+
+      <!-- ERROR MESSAGE -->
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="space-y-6" id="error-message" style="display: none;">
+
+            <!-- Error alert -->
+            <div class="mx-auto w-full max-w-4xl">
+                <div class="flex items-start gap-x-4">
+                    <div class="mt-3">
+                      <p class="text-sm text-red-600">Something went wrong. <button onclick="retryBtn()" class="underline">Try Again</button></p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- FOOD SHOW -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="show">
+    </div>
+
+
+
+    <!-- MY MODAL -->
+    <div id="modal" style="display: none;"
+      class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center">
+      <!-- overlay -->
+      <div aria-hidden="true" class="fixed inset-0 w-full h-full cursor-pointer">
+      </div>
+
+      <!-- Modal -->
+      <div class="relative w-full cursor-pointer pointer-events-none transition my-auto p-4">
+        <div
+          class="w-full py-2 bg-white cursor-default pointer-events-auto dark:bg-gray-800 relative rounded-xl mx-auto max-w-sm">
+
+          <button tabindex="-1" type="button" class="absolute top-2 right-2 rtl:right-auto rtl:left-2"
+            onclick="clearModal()">
+            <svg title="Close" tabindex="-1" class="h-4 w-4 cursor-pointer text-gray-400"
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">
+              Close
+            </span>
+          </button>
+
+          <div class="min-h-screen flex items-center justify-center p-6">
+            <div
+              class="bg-gray-50 dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden max-w-4xl w-full grid md:grid-cols-2">
+
+              <!-- Recipe Image -->
+              <div class="h-64 md:h-auto">
+                <img
+                  src="https://www.allrecipes.com/thmb/SoBuPU73KcbYHl3Kp3j8Xx4A3fc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/8805-CrispyFriedChicken-mfs-3x2-072-d55b8406d4ae45709fcdeb58a04143c2.jpg"
+                  alt="Delicious Recipe" class="w-full h-full object-cover">
+              </div>
+
+              <!-- Recipe Content -->
+              <div class="p-6 flex flex-col justify-between">
+                <div>
+                  <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-white mb-2">Creamy
+                    Garlic Chicken</h2>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">A rich and savory chicken recipe
+                    perfect for dinner nights.</p>
+
+                  <!-- Ingredients -->
+                  <div class="mb-4">
+                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Ingredients
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
+                      <li>2 chicken breasts</li>
+                      <li>4 cloves garlic, minced</li>
+                      <li>1 cup heavy cream</li>
+                      <li>1 tsp paprika</li>
+                      <li>Salt and pepper to taste</li>
+                    </ul>
+                  </div>
+
+                  <!-- Instructions -->
+                  <div>
+                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Instructions
+                    </h3>
+                    <ol class="list-decimal pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
+                      <li>Season the chicken and sear until golden.</li>
+                      <li>Add garlic and sauté until fragrant.</li>
+                      <li>Pour in cream and let it simmer.</li>
+                      <li>Return chicken and cook until done.</li>
+                      <li>Garnish and serve hot.</li>
+                    </ol>
+                  </div>
+                </div>
+
+                <!-- Footer CTA -->
+                <div class="mt-6 text-right">
+                  <button
+                    class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded-lg transition">Try
+                    Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <!-- FOOTER -->
+  <footer class="bg-white">
+    <div class="mx-auto max-w-7xl py-2 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
+      <nav class="-mx-5 -my-2 flex flex-wrap justify-center order-2" aria-label="Footer">
+        <div class="px-5">
+          <a href="#" class="text-base text-gray-900 hover:text-gray-200">Terms of Service</a>
+        </div>
+
+        <div class="px-5">
+          <a href="#" class="text-base text-gray-900 hover:text-gray-200">Privacy Policy</a>
+        </div>
+      </nav>
+      <div class="mt-4 md:mb-4 flex justify-center space-x-6 md:order-3  ">
+        <a href="#" class="text-gray-900 hover:text-gray-200">
+          <span class="sr-only">Facebook</span>
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+              clip-rule="evenodd" />
+          </svg>
+        </a>
+
+        <a href="#" class="text-gray-900 hover:text-gray-200">
+          <span class="sr-only">Twitter</span>
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+          </svg>
+        </a>
+
+        <a href="#" class="text-gray-900 hover:text-gray-200">
+          <span class="sr-only">GitHub</span>
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      <div class="mt-4  md:order-1 md:mt-0 ">
+        <p class="text-center text-base text-gray-900">
+          &copy; SvelteKit Blog App. MIT Licensed.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+</body>
+<script src="script.js"></script>
+<script>
+
+
+  // Mobile menu toggle
+  document.getElementById('mobile-menu-button').addEventListener('click', function () {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !isExpanded);
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // User menu toggle
+  document.getElementById('user-menu-button')?.addEventListener('click', function () {
+    const userMenu = document.getElementById('user-menu');
+    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !isExpanded);
+    userMenu.classList.toggle('hidden');
+  });
 </script>
 
 </html>
