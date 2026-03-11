@@ -117,33 +117,35 @@
         <!-- Category Selection -->
         <div>
           <label class="block text-sm font-medium text-gray-200 mb-2">Category</label>
-          <select id=""
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600">
+          <select
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600" onchange="categoryCheck(value)">
             <option value="">All Categories</option>
-            <option value="Soups">Soups</option>
+            <option value="Soup">Soup</option>
             <option value="Main Course">Main Course</option>
-            <option value="Snacks">Snacks</option>
             <option value="Swallow">Swallow</option>
-            <option value="Breakfast/Snacks">Breakfast/Snacks</option>
-            <option value="Side dish/Main">Side dish/Main</option>
-            <option value="Snacks/Dessert">Snacks/Dessert</option>
-            <option value="Appetizer/Side dish">Appetizer/Side dish</option>
-            <option value="Side dish/Snacks">Side dish/Snacks</option>
+            <option value="Snack/Street Food">Snack/Street Food</option>
+            <option value="Breakfast/Snack">Breakfast/Snack</option>
+            <option value="Side Dish/Main">Side Dish/Main</option>
+            <option value="Snack/Dessert">Snack/Dessert</option>
+            <option value="Appetizer/Side Dish">Appetizer/Side Dish</option>
+            <option value="Side Dish/Snack">Side Dish/Snack</option>
           </select>
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-200 mb-2">Region</label>
           <select id=""
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600">
-            <option value="All Regions">All Regions</option>
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600" onchange="regionCheck(value)">
+            <option value="">All Regions</option>
             <option value="Northern Nigeria">Northern Nigeria</option>
             <option value="South-West Nigeria">South-West Nigeria</option>
             <option value="South-South Nigeria">South-South Nigeria</option>
             <option value="South-East Nigeria">South-East Nigeria</option>
           </select>
         </div>
-        <!-- Toggle Switch Tarzı Checkboxlar -->
+
+
+        <!-- Checkbox -->
         <label class="flex items-center space-x-3 cursor-pointer">
           <div class="relative">
             <input type="checkbox" class="sr-only peer">
@@ -216,15 +218,16 @@
     <div id="modal" style="display: none;"
       class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center">
       <!-- overlay -->
-      <div aria-hidden="true" class="fixed inset-0 w-full h-full cursor-pointer">
+      <div aria-hidden="true" class="fixed inset-0 w-full h-full cursor-pointer bg-gray-100 opacity-50">
       </div>
 
-      <!-- Modal -->
+      <!-- Modal itself-->
       <div class="relative w-full cursor-pointer pointer-events-none transition my-auto p-4">
         <div
-          class="w-full py-2 bg-white cursor-default pointer-events-auto dark:bg-gray-800 relative rounded-xl mx-auto max-w-sm">
+          class="w-full py-2 bg-white cursor-default pointer-events-auto dark:bg-gray-800 relative rounded-xl mx-auto max-w-4xl w-11/12 md:w-3/4 lg:w-2/3">
 
-          <button tabindex="-1" type="button" class="absolute top-2 right-2 rtl:right-auto rtl:left-2"
+          <!-- Close buttton -->
+          <button tabindex="-1" type="button" class="absolute top-2 right-2 rtl:right-auto rtl:left-2 z-50"
             onclick="clearModal()">
             <svg title="Close" tabindex="-1" class="h-4 w-4 cursor-pointer text-gray-400"
               xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -237,60 +240,8 @@
             </span>
           </button>
 
-          <div class="min-h-screen flex items-center justify-center p-6">
-            <div
-              class="bg-gray-50 dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden max-w-4xl w-full grid md:grid-cols-2">
-
-              <!-- Recipe Image -->
-              <div class="h-64 md:h-auto">
-                <img
-                  src="https://www.allrecipes.com/thmb/SoBuPU73KcbYHl3Kp3j8Xx4A3fc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/8805-CrispyFriedChicken-mfs-3x2-072-d55b8406d4ae45709fcdeb58a04143c2.jpg"
-                  alt="Delicious Recipe" class="w-full h-full object-cover">
-              </div>
-
-              <!-- Recipe Content -->
-              <div class="p-6 flex flex-col justify-between">
-                <div>
-                  <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-white mb-2">Creamy
-                    Garlic Chicken</h2>
-                  <p class="text-gray-600 dark:text-gray-300 mb-4">A rich and savory chicken recipe
-                    perfect for dinner nights.</p>
-
-                  <!-- Ingredients -->
-                  <div class="mb-4">
-                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Ingredients
-                    </h3>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
-                      <li>2 chicken breasts</li>
-                      <li>4 cloves garlic, minced</li>
-                      <li>1 cup heavy cream</li>
-                      <li>1 tsp paprika</li>
-                      <li>Salt and pepper to taste</li>
-                    </ul>
-                  </div>
-
-                  <!-- Instructions -->
-                  <div>
-                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Instructions
-                    </h3>
-                    <ol class="list-decimal pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
-                      <li>Season the chicken and sear until golden.</li>
-                      <li>Add garlic and sauté until fragrant.</li>
-                      <li>Pour in cream and let it simmer.</li>
-                      <li>Return chicken and cook until done.</li>
-                      <li>Garnish and serve hot.</li>
-                    </ol>
-                  </div>
-                </div>
-
-                <!-- Footer CTA -->
-                <div class="mt-6 text-right">
-                  <button
-                    class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded-lg transition">Try
-                    Now</button>
-                </div>
-              </div>
-            </div>
+          <div class="max-h-[90vh] overflow-y-auto p-6" id="modalDetails">
+            
           </div>
         </div>
       </div>

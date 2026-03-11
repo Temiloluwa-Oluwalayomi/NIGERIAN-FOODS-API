@@ -1,4 +1,4 @@
-// let allFoods = [];
+let allFoods = [];
 
 
 
@@ -14,42 +14,32 @@ const foodAPI = async () => {
     const result = fetch(endpoint)
     const awaitedResult = await result
     const convertedResult = await awaitedResult.json()
-    let allFoods = convertedResult.data;
+    allFoods = convertedResult.data;
     foodCards(allFoods);
     document.getElementById("spinner").style.display = 'none'
-    // console.log(allFoods);
-    
+    console.log(allFoods);
+
 
   } catch (error) {
     document.getElementById("spinner").style.display = 'none'
     document.getElementById("error-message").style.display = 'block'
   }
 }
-
-
-foodAPI()
-
-const modalFunction = (foodId) => {
-  document.getElementById('modal').style.display = 'block'
-  // alert(foodId)
-}
-
-const clearModal = () => {
-  document.getElementById('modal').style.display = 'none'
-}
-
 const retryBtn = () => {
   foodAPI()
 }
 
+foodAPI()
+
 const foodCards = (foodArray) => {
 
   const show = document.getElementById('show')
+  show.innerHTML = ''
   for (let index = 0; index < foodArray.length; index++) {
     const foodData = foodArray[index];
     let images = "FoodImages/" + foodData.name.toLowerCase().replaceAll(" ", "-") + ".jpeg"
     show.innerHTML += `
-          <div class="bg-white dark:bg-gray-800 rounded-2xl cursor-pointer overflow-hidden shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 pb-5" title="Click for more information" onclick="modalFunction(${foodData.id})">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl cursor-pointer overflow-hidden shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 pb-5" title="Click for more information" onclick="foodID(${foodData.id})">
           
           <img src= ${images} alt="Web Development" class="w-full h-60 object-cover">
           <div class="p-6">
@@ -86,6 +76,132 @@ const foodCards = (foodArray) => {
         </div>
         `
   }
-
 }
 
+const foodID = async (id) => {
+  // alert(id)
+  document.getElementById("spinner").style.display = 'block'
+  try {
+    const endpoint = ('https://mongotest2026.vercel.app/api/foods/' + id)
+    const result = fetch(endpoint)
+    const awaitedResult = await result
+    const convertedResult = await awaitedResult.json()
+    document.getElementById("spinner").style.display = 'none'
+    let food = convertedResult.data;
+    // console.log(food);
+    modalFunction(food);
+  } catch (error) {
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("error-message").style.display = "block";
+  }
+}
+
+
+const modalFunction = (food) => {
+  
+    let images = "FoodImages/" + food.name.toLowerCase().replaceAll(" ", "-") + ".jpeg"
+    const ingredientsList = food.ingredients.map(function(ingredient) {
+        return "<li>" + ingredient + "</li>";}).join("")
+    // console.log(ingredientsList);
+    // return;
+    
+  document.getElementById('modalDetails').innerHTML = `
+    <div
+              class="bg-gray-50 dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden max-w-4xl w-full grid md:grid-cols-2">
+
+              <div class="h-64 md:h-auto">
+                <img
+                  src="${images}"
+                  alt="Food Image" class="w-full h-full object-cover">
+              </div>
+
+              <!-- Recipe Content -->
+              <div class="p-6 flex flex-col justify-between">
+                <div>
+                  <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-white mb-2">${food.name}</h2>
+                  <h4 class="text-md font-bold font-serif text-gray-800 dark:text-white mb-2"> ~ ${food.category } ~ ${ food.region}</h4>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4 border-b-2">${food.description}</p>
+
+                  <!-- Ingredients -->
+                  <div class="mb-4">
+                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Ingredients
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
+                      ${ingredientsList}
+                    </ul>
+                  </div>
+
+                  <!-- Food Details -->
+                  <div>
+                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Food Details
+                    </h3>
+                    <ol class="pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
+                      <li>${food.calories} calories</li>
+                      <li>Add garlic and sauté until fragrant.</li>
+                      <li>Pour in cream and let it simmer.</li>
+                      <li>Return chicken and cook until done.</li>
+                      <li>Garnish and serve hot.</li>
+                    </ol>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+  `
+  document.getElementById('modal').style.display = 'block'
+}
+
+const clearModal = () => {
+  document.getElementById('modal').style.display = 'none'
+}
+
+
+const categoryCheck = async (category) => {
+  // console.log(category);
+
+  if (category === '') {
+    foodCards(allFoods)
+  }
+  document.getElementById("spinner").style.display = 'block'
+
+  try {
+    const endpoint = ('https://mongotest2026.vercel.app/api/foods/category/' + category)
+    const result = fetch(endpoint)
+    const awaitedResult = await result
+    const convertedResult = await awaitedResult.json()
+    document.getElementById("spinner").style.display = 'none'
+    let categories = convertedResult.data;
+    console.log(categories);
+    foodCards(categories);
+  } catch (error) {
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("error-message").style.display = "block";
+  }
+}
+
+
+
+const regionCheck = async (region) => {
+  // console.log(category);
+
+  if (region === '') {
+    foodCards(allFoods)
+    return;
+  }
+  document.getElementById("spinner").style.display = 'block'
+
+  try {
+    const endpoint = ('https://mongotest2026.vercel.app/api/foods/region/' + region)
+    const result = fetch(endpoint)
+    const awaitedResult = await result
+    const convertedResult = await awaitedResult.json()
+    document.getElementById("spinner").style.display = 'none'
+    let regions = convertedResult.data;
+    console.log(regions);
+    foodCards(regions);
+  } catch (error) {
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("error-message").style.display = "block";
+  }
+}
