@@ -98,13 +98,14 @@ const foodID = async (id) => {
 
 
 const modalFunction = (food) => {
-  
-    let images = "FoodImages/" + food.name.toLowerCase().replaceAll(" ", "-") + ".jpeg"
-    const ingredientsList = food.ingredients.map(function(ingredient) {
-        return "<li>" + ingredient + "</li>";}).join("")
-    // console.log(ingredientsList);
-    // return;
-    
+
+  let images = "FoodImages/" + food.name.toLowerCase().replaceAll(" ", "-") + ".jpeg"
+  const ingredientsList = food.ingredients.map(function (ingredient) {
+    return "<li>" + ingredient + "</li>";
+  }).join("")
+  // console.log(ingredientsList);
+  // return;
+
   document.getElementById('modalDetails').innerHTML = `
     <div
               class="bg-gray-50 dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden max-w-4xl w-full grid md:grid-cols-2">
@@ -119,29 +120,67 @@ const modalFunction = (food) => {
               <div class="p-6 flex flex-col justify-between">
                 <div>
                   <h2 class="text-3xl font-bold font-serif text-gray-800 dark:text-white mb-2">${food.name}</h2>
-                  <h4 class="text-md font-bold font-serif text-gray-800 dark:text-white mb-2"> ~ ${food.category } ~ ${ food.region}</h4>
-                  <p class="text-gray-600 dark:text-gray-300 mb-4 border-b-2">${food.description}</p>
+                  <h4 class="text-md font-bold font-serif text-gray-800 dark:text-white mb-2"> ~ ${food.category} ~ ${food.region}</h4>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">${food.description}</p>
+
+
+    <div class="flex-1 m-6">
+        <hr class="my-2">
+        <div class="flex flex-wrap justify-center">
+
+        ${food.isSpicy === true ? `<button class="shrink-0 bg-red-500 rounded-lg text-white text-xs text-center self-center px-2 py-2 my-2 mx-2 font-medium tracking-tight"><i class="fab fa-github mr-1"></i> Spicy</button>` : ''}
+            
+        ${food.isVegetarian === true ? `<button class="shrink-0 bg-emerald-500 rounded-lg text-white text-xs text-center self-center px-2 py-2 my-2 mx-2 font-medium tracking-tight"><i class="fab fa-github mr-1"></i> Vegetarian</button>` : ''}
+            <button class="bg-red-700 rounded-lg text-white text-xs text-center self-center px-3 py-2 my-2 mx-2"><i class="fab fa-youtube mr-1"></i> ${food.preparationTime}</button>
+            <button class="bg-red-500 rounded-lg text-white text-xs text-center self-center px-3 py-2 my-2 mx-2"><i class="fab fa-laravel mr-1"></i> ${food.calories} calories</button>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <div class="flex flex-col gap-4 p-6 text-lg font-serif">
+    <a href="#"
+      class="bg-gray-100 text-black border-l-8 border-green-500 rounded-md px-3 py-2 w-full">
+      Difficulty
+
+      <div class="text-gray-500 font-thin text-sm pt-1">
+        <span>${food.description}</span>
+      </div>
+    </a>
+    <a class="bg-gray-100 text-black border-l-8 border-green-500 rounded-md px-3 py-2 w-full"
+      href="#">
+      Price
+      <div class="text-gray-500 font-thin text-sm">
+        <span>${food.price}</span>
+      </div>
+    </a>
+    <a class="bg-gray-100 text-black border-l-8 border-green-500 rounded-md px-3 py-2 w-full"
+      href="#">
+      Serving Size
+      <div class="text-gray-500 font-thin text-sm">
+        <span>${food.servingSize}</span>
+      </div>
+    </a>
+    <a class="bg-gray-100 text-black border-l-8 border-green-500 rounded-md px-3 py-2 w-full"
+      href="#">
+      Category
+      <div class="text-gray-500 font-thin text-sm">
+        <span>${food.category}</span>
+      </div>
+    </a>
+  </div>
+
+
 
                   <!-- Ingredients -->
                   <div class="mb-4">
-                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Ingredients
+                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Ingredients (${food.ingredients.length})
                     </h3>
-                    <ul class="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-200 text-sm">
                       ${ingredientsList}
                     </ul>
-                  </div>
-
-                  <!-- Food Details -->
-                  <div>
-                    <h3 class="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Food Details
-                    </h3>
-                    <ol class="pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
-                      <li>${food.calories} calories</li>
-                      <li>Add garlic and sauté until fragrant.</li>
-                      <li>Pour in cream and let it simmer.</li>
-                      <li>Return chicken and cook until done.</li>
-                      <li>Garnish and serve hot.</li>
-                    </ol>
                   </div>
                 </div>
 
