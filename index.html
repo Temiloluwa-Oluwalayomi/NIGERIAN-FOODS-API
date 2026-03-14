@@ -7,68 +7,81 @@
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <script src="https://kit.fontawesome.com/020a23cc78.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Hide modal overlay scrollbar while still allowing scrolling */
+    #modal,
+    #modalDetails {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #modal::-webkit-scrollbar,
+    #modalDetails::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 
 </head>
 
 <body>
   <!-- NAVBAR -->
-  <nav class="bg-gray-900 text-white shadow-lg sticky top-0">
-    <div class="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
+  <nav class="bg-gray-900 text-white shadow-lg sticky top-0 z-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
         <div class="flex items-center">
           <a href="#" class="flex-shrink-0 flex items-center">
             <img class="h-8 w-auto" src="https://tailwindflex.com/images/logo.svg" alt="Logo">
-            <span class="ml-2 text-xl font-bold">TO Foods</span>
+            <span class="ml-2 text-xl font-bold">TOT Foods</span>
           </a>
-          <div class="pl-90 hidden md:ml-6 md:flex md:space-x-8">
-            <a href="#"
-              class="text-white border-b-2 border-indigo-500 px-10 pt-1 inline-flex items-center text-sm font-medium">
-              About
-            </a>
-            <a href="#"
-              class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-10 pt-1 inline-flex items-center text-sm font-medium">
-              Meals
-            </a>
-            <a href="#"
-              class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-10 pt-1 inline-flex items-center text-sm font-medium">
-              Contact
-            </a>
-
-            <!-- <a href="#"
-              class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-1 pt-1 inline-flex items-center text-sm font-medium">Contact</>
-            </a> -->
-
-            <a class="px-6 py-2 min-w-[120px] text-center text-white bg-violet-600 border border-violet-600 rounded active:text-violet-500 hover:bg-transparent hover:text-violet-600 focus:outline-none focus:ring"
-              href="/download">
-              Favorites
-            </a>
-          </div>
         </div>
-        <div class="flex items-center">
-          <!-- Mobile menu button -->
-          <div class="flex items-center md:hidden ml-4">
-            <button type="button"
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-expanded="false" id="mobile-menu-button">
-              <span class="sr-only">Open main menu</span>
-              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#"
+            class="text-white border-b-2 border-indigo-500 px-3 py-2 inline-flex items-center text-sm font-medium transition-colors duration-200">
+            About
+          </a>
+          <a href="#"
+            class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-3 py-2 inline-flex items-center text-sm font-medium transition-colors duration-200">
+            Meals
+          </a>
+          <a href="#"
+            class="text-gray-300 hover:text-white border-b-2 border-transparent hover:border-gray-300 px-3 py-2 inline-flex items-center text-sm font-medium transition-colors duration-200">
+            Contact
+          </a>
+          <a class="px-4 py-2 text-center text-white bg-indigo-600 hover:bg-indigo-700 border border-indigo-600 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
+            href="/download">
+            Favorites
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-expanded="false" id="mobile-menu-button">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Mobile menu, show/hide based on menu state -->
-    <div class="md:hidden hidden" id="mobile-menu">
-      <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="#" class="bg-gray-800 text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
-        <a href="#"
-          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Meals</a>
-        <a href="#"
-          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+    <!-- Mobile menu -->
+    <div class="hidden md:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 bg-gray-900 border-t border-gray-700">
+        <a href="#" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-800">About</a>
+        <a href="#" class="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 rounded-md text-base font-medium">Meals</a>
+        <a href="#" class="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+        <a class="block px-3 py-2 text-white bg-indigo-600 hover:bg-indigo-700 border border-indigo-600 rounded-md text-center font-medium mt-2"
+          href="/download">
+          Favorites
+        </a>
       </div>
     </div>
   </nav>
@@ -83,17 +96,15 @@
       class="w-full h-[90vh] bg-[url('/top-view-vegetable-soup-with-meat-inside-plate-grey.jpg')] bg-cover bg-no-repeat bg-center flex flex-col justify-center items-center ">
       <div>
         <h1
-          class="text-white text-center xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl :text-xl font-semibold bg-gray-800 p-2 bg-opacity-40 rounded-sm">
+          class="text-gray-900 text-center xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl :text-xl font-bold bg-opacity-60 rounded-lg px-6 py-4 shadow-2xl">
           Welcome to TO FOODS</h1>
       </div>
       <div class="w-full mx-auto">
-        <form>
-          <div class="xl:w-1/2 lg:w-[60%] sm:w-[70%] w-[90%] mx-auto flex gap-2 md:mt-6 mt-4 mx-4">
-            <input type="text" class="border border-gray-400 w-full p-2 rounded-md text-xl pl-2" placeholder="" />
-            <button type="submit"
-              class="px-[10px] bg-blue-500 text-lg text-white rounded-md font-semibold">Search</button>
+        <div>
+          <div class="xl:w-1/2 lg:w-[60%] sm:w-[70%] w-[90%] mx-auto flex gap-2 md:mt-6 mt-4 mx-4 bg-white bg-opacity-95 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+            <input type="text" onkeyup="searchFood(event)" class="border border-gray-300 w-full p-3 rounded-md text-lg pl-3 bg-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Search for delicious foods..." />
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </section>
@@ -105,7 +116,7 @@
   <!-- <p id="show" class="d-flex flex-wrap align-items-start justify-content-center"></p> -->
 
 
-  <div class="p-6 min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+  <div class="p-6 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <h2 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
       Available Foods
     </h2>
@@ -117,9 +128,9 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <!-- Category Selection -->
         <div>
-          <label class="block text-sm font-medium text-gray-200 mb-2">Category</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Category</label>
           <select
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600" onchange="categoryCheck(value)">
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700" onchange="categoryCheck(value)">
             <option value="">All Categories</option>
             <option value="Soup">Soup</option>
             <option value="Main Course">Main Course</option>
@@ -134,9 +145,9 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-200 mb-2">Region</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Region</label>
           <select id=""
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-600" onchange="regionCheck(value)">
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700" onchange="regionCheck(value)">
             <option value="">All Regions</option>
             <option value="Northern Nigeria">Northern Nigeria</option>
             <option value="South-West Nigeria">South-West Nigeria</option>
@@ -149,31 +160,31 @@
         <!-- Checkbox -->
         <label class="flex items-center space-x-3 cursor-pointer">
           <div class="relative">
-            <input type="checkbox" class="sr-only peer">
-            <div class="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-blue-600 transition-colors duration-300">
+            <input type="checkbox" class="sr-only peer" onchange="vegetarianCheck(event)">
+            <div class="w-11 h-6 bg-gray-300 dark:bg-gray-700 rounded-full peer-checked:bg-green-600 transition-colors duration-300">
             </div>
             <div
               class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 peer-checked:left-6">
             </div>
           </div>
-          <span class="text-gray-200">Vegeterian</span>
+          <span class="text-gray-700 dark:text-gray-200 font-medium">Vegetarian</span>
         </label>
 
         <label class="flex items-center space-x-3 cursor-pointer">
           <div class="relative">
-            <input type="checkbox" class="sr-only peer">
-            <div class="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-blue-600 transition-colors duration-300">
+            <input type="checkbox" class="sr-only peer" onchange="spicyCheck(event)">
+            <div class="w-11 h-6 bg-gray-300 dark:bg-gray-700 rounded-full peer-checked:bg-red-600 transition-colors duration-300">
             </div>
             <div
               class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 peer-checked:left-6">
             </div>
           </div>
-          <span class="text-gray-200">Spicy</span>
+          <span class="text-gray-700 dark:text-gray-200 font-medium">Spicy</span>
         </label>
         <!-- Clear Filter Button -->
         <div class="flex items-end">
           <button
-            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 transform hover:scale-105">
+            class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500">
             Clear Filter
           </button>
         </div>
@@ -190,7 +201,7 @@
     <!-- Spinner  -->
       <div class="flex gap-4 p-4 flex-wrap justify-center" style="display:none" id="spinner">
         <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/70469/loading.svg" alt="Loading icon">
-        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/448500/loading.svg" alt="Loading icon">
+        <!-- <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/448500/loading.svg" alt="Loading icon"> -->
       </div>
 
 
@@ -209,23 +220,22 @@
             </div>
           </div>
         </div>
-        <!-- FOOD SHOW -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="show">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="show">
     </div>
 
 
 
     <!-- MY MODAL -->
     <div id="modal" style="display: none;"
-      class="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center">
+        class="fixed inset-0 z-100 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center">
       <!-- overlay -->
-      <div aria-hidden="true" class="fixed inset-0 w-full h-full cursor-pointer bg-gray-100 opacity-50" onclick="clearModal()">
+        <div aria-hidden="true" class="fixed inset-0 w-full h-full cursor-pointer bg-black/30 dark:bg-black/60 backdrop-blur-sm" onclick="clearModal()">
       </div>
 
       <!-- Modal itself-->
       <div class="relative w-full cursor-pointer pointer-events-none transition my-auto p-4">
         <div
-          class="w-full py-2 bg-white cursor-default pointer-events-auto dark:bg-gray-800 relative rounded-xl mx-auto max-w-4xl w-11/12 md:w-3/4 lg:w-2/3">
+          class="w-full py-2 bg-white cursor-default pointer-events-auto dark:bg-gray-800 relative rounded-xl mx-auto max-w-4xl w-11/12 md:w-3/4 lg:w-2/3 shadow-2xl">
 
           <!-- Close buttton -->
           <button tabindex="-1" type="button" class="absolute top-2 right-2 rtl:right-auto rtl:left-2 z-50"
@@ -253,48 +263,98 @@
 
 
   <!-- FOOTER -->
-  <footer class="bg-white">
-    <div class="mx-auto max-w-7xl py-2 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
-      <nav class="-mx-5 -my-2 flex flex-wrap justify-center order-2" aria-label="Footer">
-        <div class="px-5">
-          <a href="#" class="text-base text-gray-900 hover:text-gray-200">Terms of Service</a>
+  <footer class="bg-gray-200 dark:bg-gray-800 border-t border-gray-300 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Brand Section -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-1">
+          <div class="flex items-center mb-4">
+            <img class="h-8 w-auto" src="https://tailwindflex.com/images/logo.svg" alt="Logo">
+            <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">TOT Foods</span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+            Discover authentic Nigerian cuisine with our curated collection of traditional and modern dishes.
+            From jollof rice to pounded yam, experience the rich flavors of Nigeria.
+          </p>
         </div>
 
-        <div class="px-5">
-          <a href="#" class="text-base text-gray-900 hover:text-gray-200">Privacy Policy</a>
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">About Us</a></li>
+            <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Our Menu</a></li>
+            <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Recipes</a></li>
+            <li><a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Blog</a></li>
+          </ul>
         </div>
-      </nav>
-      <div class="mt-4 md:mb-4 flex justify-center space-x-6 md:order-3  ">
-        <a href="#" class="text-gray-900 hover:text-gray-200">
-          <span class="sr-only">Facebook</span>
-          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
 
-        <a href="#" class="text-gray-900 hover:text-gray-200">
-          <span class="sr-only">Twitter</span>
-          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-          </svg>
-        </a>
+        <!-- Contact Info -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Us</h3>
+          <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <li class="flex items-center">
+              <svg class="w-4 h-4 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+              </svg>
+              Lagos, Nigeria
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+              </svg>
+              +234 123 456 7890
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 mr-2 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+              info@totfoods.ng
+            </li>
+          </ul>
+        </div>
 
-        <a href="#" class="text-gray-900 hover:text-gray-200">
-          <span class="sr-only">GitHub</span>
-          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
+        <!-- Social & Newsletter -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Follow Us</h3>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">
+              <span class="sr-only">Facebook</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">
+              <span class="sr-only">Instagram</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M12.017 0C8.396 0 7.979.016 6.677.072 5.375.128 4.379.309 3.587.581c-.87.297-1.611.698-2.357 1.444C.483 2.77.082 3.511.309 4.381c.272.792.453 1.788.509 3.09C.879 8.783.895 9.2.895 12.817s-.016 4.034-.072 5.336c-.056 1.302-.237 2.298-.509 3.09-.297.87-.698 1.611-1.444 2.357C.77 23.517 1.511 23.918 2.381 24.191c.792.272 1.788.453 3.09.509C7.783 24.521 8.2 24.537 11.817 24.537s4.034-.016 5.336-.072c1.302-.056 2.298-.237 3.09-.509.87-.297 1.611-.698 2.357-1.444.746-.746 1.147-1.487 1.444-2.357.272-.792.453-1.788.509-3.09.056-1.302.072-1.719.072-5.336s-.016-4.034-.072-5.336c-.056-1.302-.237-2.298-.509-3.09-.297-.87-.698-1.611-1.444-2.357C23.517.483 22.776.082 21.906.309c-.792.272-1.788.453-3.09.509C16.217.879 15.8.895 12.183.895 12.183.895 12.017 0 12.017 0zm5.97 2.408c1.077-.005 1.809.002 2.443.047.584.041.977.13 1.211.218.302.114.519.237.735.453.218.216.339.433.453.735.088.234.177.627.218 1.211.045.634.052 1.366.047 2.443-.005 1.077-.002 1.809-.047 2.443-.041.584-.13.977-.218 1.211-.114.302-.237.519-.453.735-.216.218-.433.339-.735.453-.234.088-.627.177-1.211.218-.634.045-1.366.052-2.443.047-1.077-.005-1.809-.002-2.443-.047-.584-.041-.977-.13-1.211-.218-.302-.114-.519-.237-.735-.453-.218-.216-.339-.433-.453-.735-.088-.234-.177-.627-.218-1.211-.045-.634-.052-1.366-.047-2.443.005-1.077.002-1.809.047-2.443.041-.584.13-.977.218-1.211.114-.302.237-.519.453-.735.216-.218.433-.339.735-.453.234-.088.627-.177 1.211-.218.634-.045 1.366-.052 2.443-.047zM12.017 6.817c-3.168 0-5.737 2.569-5.737 5.737s2.569 5.737 5.737 5.737 5.737-2.569 5.737-5.737-2.569-5.737-5.737-5.737zm0 9.487c-2.082 0-3.77-1.688-3.77-3.77s1.688-3.77 3.77-3.77 3.77 1.688 3.77 3.77-1.688 3.77-3.77 3.77zm5.97-10.408c-.634 0-1.148.514-1.148 1.148s.514 1.148 1.148 1.148 1.148-.514 1.148-1.148-.514-1.148-1.148-1.148z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">
+              <span class="sr-only">Twitter</span>
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+              </svg>
+            </a>
+          </div>
+          <div class="text-sm text-gray-600 dark:text-gray-300">
+            <p>Stay updated with our latest recipes and food news!</p>
+          </div>
+        </div>
       </div>
-      <div class="mt-4  md:order-1 md:mt-0 ">
-        <p class="text-center text-base text-gray-900">
-          &copy; SvelteKit Blog App. MIT Licensed.
-        </p>
+
+      <!-- Bottom Footer -->
+      <div class="border-t border-gray-300 dark:border-gray-700 mt-8 pt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            &copy; 2024 TOT Foods. All rights reserved. Made with ❤️ for Nigerian cuisine lovers.
+          </p>
+          <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Privacy Policy</a>
+            <a href="#" class="text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">Terms of Service</a>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
